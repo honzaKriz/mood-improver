@@ -4,30 +4,43 @@ import { Button, StyleSheet, Text, View } from "react-native";
 export default function App() {
   return (
     <>
-      <View style={styles.containerBlue}>
-        <Text>
-          So I guess that if I change this, I will see it on my phone now?
-        </Text>
-        <Text>BASED</Text>
-        <Button title="button is easy"></Button>
-        <StatusBar style="auto" />
+      <View style={styles.background}>
+        <View style={styles.containerWhite}>
+          <Text>
+            So I guess that if I change this, I will see it on my phone now?
+          </Text>
+          <Text>BASED</Text>
+          <View style={styles.button}>
+            <Button title="button is easy"></Button>
+          </View>
+          <StatusBar style="auto" />
+        </View>
       </View>
-      <View style={styles.containerRed}></View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  containerBlue: {
+  background: {
     flex: 1,
-    backgroundColor: "blue",
+    backgroundColor: "gray",
     alignItems: "center",
     justifyContent: "center",
   },
-  containerRed: {
+  containerWhite: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    maxHeight: 575,
+    borderRadius: 15,
+    paddingLeft: 35,
+    paddingRight: 35,
+    position: "relative",
+  },
+  button: {
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });
