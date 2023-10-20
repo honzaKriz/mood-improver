@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import DropdownButton from "./components/molecules/dropdownButton";
 
 export default function App() {
   return (
@@ -11,7 +12,7 @@ export default function App() {
           </Text>
           <Text>BASED</Text>
           <View style={styles.button}>
-            <Button title="button is easy"></Button>
+            <DropdownButton text="click me"></DropdownButton>
           </View>
           <StatusBar style="auto" />
         </View>
