@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import DropdownButton from "./components/molecules/dropdownButton";
+import DropdownButton from "./components/molecules/DropdownButton";
 
 export default function App() {
   return (
