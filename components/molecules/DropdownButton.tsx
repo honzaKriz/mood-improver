@@ -1,20 +1,15 @@
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from 'react-native';
 
 type DropdownButtonProps = {
   text: string;
+  isOpen: boolean;
+  toggleIsOpen: () => void;
 };
 
-export default function DropdownButton({}: DropdownButtonProps) {
-  let [isOpen, setIsOpen] = useState(false);
-
-  function toggleIsOpen() {
-    setIsOpen((prevState) => !prevState);
-  }
-
-  // TODO: create dropdown menu and set the class based on the click
-  // function showDropdown() {}
-
+export default function DropdownButton({
+  isOpen,
+  toggleIsOpen,
+}: DropdownButtonProps) {
   return (
     <View style={styles.dropdownButton} onTouchEnd={toggleIsOpen}>
       <View style={styles.horizontalLine}></View>
@@ -28,14 +23,14 @@ const styles = StyleSheet.create({
   dropdownButton: {
     height: 50,
     width: 50,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     padding: 12,
-    backgroundColor: "lightgrey",
+    backgroundColor: 'lightgrey',
     margin: 8,
     borderRadius: 10,
   },
   horizontalLine: {
     height: 5,
-    backgroundColor: "black",
+    backgroundColor: 'black',
   },
 });
