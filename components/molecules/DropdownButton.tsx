@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
     margin: 8,
     borderRadius: 10,
+    position: 'relative',
   },
   horizontalLine: {
     height: 5,
