@@ -1,8 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import DropdownButton from './components/molecules/DropdownButton';
 import DropdownMenu from './components/organisms/DropdownMenu';
+import VerticalSlider from './components/molecules/VerticalSlider';
 import { useState } from 'react';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default function App() {
   let [isOpen, setIsOpen] = useState(false);
@@ -15,10 +18,7 @@ export default function App() {
     <>
       <View style={styles.background}>
         <View style={styles.containerWhite}>
-          <Text>
-            So I guess that if I change this, I will see it on my phone now?
-          </Text>
-          <Text>BASED</Text>
+          <Text>How are you feeling today?</Text>
           <View style={styles.button}>
             <DropdownButton
               text='click me'
@@ -26,6 +26,9 @@ export default function App() {
               isOpen={isOpen}
             ></DropdownButton>
             {isOpen && <DropdownMenu />}
+          </View>
+          <View>
+            <VerticalSlider></VerticalSlider>
           </View>
           <StatusBar style='auto' />
         </View>
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     paddingRight: 35,
     position: 'relative',
+    width: screenWidth * 0.9,
   },
   button: {
     position: 'absolute',
