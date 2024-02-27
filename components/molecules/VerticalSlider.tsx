@@ -2,9 +2,7 @@ import { Slider } from '@react-native-assets/slider';
 import { StyleSheet, Image } from 'react-native';
 import React from 'react';
 
-function VerticalSlider() {
-  const [value, setValue] = React.useState(0);
-
+function VerticalSlider({ value, setSliderValue }) {
   const SmileyThumb = () => {
     return (
       <Image
@@ -23,8 +21,8 @@ function VerticalSlider() {
       step={1}
       inverted={true}
       vertical={true}
-      onValueChange={setValue}
-      minimumTrackTintColor='blue'
+      onValueChange={setSliderValue}
+      minimumTrackTintColor='green'
       maximumTrackTintColor='red'
       CustomThumb={SmileyThumb}
     />
@@ -36,6 +34,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: 40,
     flexGrow: 0,
+    marginTop: 20,
   },
 });
 

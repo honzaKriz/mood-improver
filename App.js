@@ -1,25 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import DropdownButton from './components/molecules/DropdownButton';
 import DropdownMenu from './components/organisms/DropdownMenu';
 import VerticalSlider from './components/molecules/VerticalSlider';
+import Box from './components/atoms/Box';
+import Button from './components/atoms/Button';
 import { useState } from 'react';
-
-const screenWidth = Dimensions.get('window').width;
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   let [isOpen, setIsOpen] = useState(false);
+  const [sliderValue, setSliderValue] = useState(0);
+  const [currentTime, setCurrentTime] = useState(null);
 
-  function toggleIsOpen() {
+  const toggleIsOpen = () => {
     setIsOpen((prevState) => !prevState);
-  }
+  };
+
+  const getCurrentTimeStamp = () => {
+    const now = new Date();
+    const timeString = now.toLocaleDateString();
+    setCurrentTime(timeString);
+  };
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('my-key', value);
+    } catch (e) {
+      ("Couldn't save to database");
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('my-key');
+      if (value !== null) {
+        return value;
+      }
+    } catch (e) {
+      ("Couldn't read from database");
+    }
+  };
 
   return (
     <>
       <View style={styles.background}>
-        <View style={styles.containerWhite}>
+        <Box>
           <Text>How are you feeling today?</Text>
-          <View style={styles.button}>
+          <View style={styles.dropdownButton}>
             <DropdownButton
               text='click me'
               toggleIsOpen={toggleIsOpen}
@@ -28,10 +56,21 @@ export default function App() {
             {isOpen && <DropdownMenu />}
           </View>
           <View>
-            <VerticalSlider></VerticalSlider>
+            <VerticalSlider
+              value={sliderValue}
+              setSliderValue={setSliderValue}
+            ></VerticalSlider>
           </View>
+          {sliderValue ? (
+            <Button
+              text='SAVE'
+              buttonStyle={styles.saveButton}
+              onPress={getCurrentTimeStamp}
+            ></Button>
+          ) : null}
+          {currentTime ? <Text>{currentTime}</Text> : null}
           <StatusBar style='auto' />
-        </View>
+        </Box>
       </View>
     </>
   );
@@ -44,21 +83,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  containerWhite: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxHeight: 575,
-    borderRadius: 15,
-    paddingLeft: 35,
-    paddingRight: 35,
-    position: 'relative',
-    width: screenWidth * 0.9,
-  },
-  button: {
+  dropdownButton: {
     position: 'absolute',
     right: 0,
     top: 0,
+  },
+  saveButton: {
+    marginTop: 25,
   },
 });
