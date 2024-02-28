@@ -7,6 +7,7 @@ import Box from './components/atoms/Box';
 import Button from './components/atoms/Button';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getCurrentTimeStamp } from './utils/helpers/getTime';
 
 export default function App() {
   let [isOpen, setIsOpen] = useState(false);
@@ -17,18 +18,17 @@ export default function App() {
     setIsOpen((prevState) => !prevState);
   };
 
-  const getCurrentTimeStamp = () => {
-    const now = new Date();
-    const timeString = now.toLocaleDateString();
-    setCurrentTime(timeString);
-  };
-
-  const storeData = async (value) => {
+  const storeData = async (uniqueKey, value) => {
     try {
-      await AsyncStorage.setItem('my-key', value);
+      await AsyncStorage.setItem(uniqueKey, value);
     } catch (e) {
       ("Couldn't save to database");
     }
+  };
+
+  const storeDataWithTimestamp = () => {
+    const { uniqueKey, timeString } = getCurrentTimeStamp();
+    storeData(uniqueKey, timeString);
   };
 
   const getData = async () => {
@@ -65,7 +65,7 @@ export default function App() {
             <Button
               text='SAVE'
               buttonStyle={styles.saveButton}
-              onPress={getCurrentTimeStamp}
+              onPress={storeDataWithTimestamp}
             ></Button>
           ) : null}
           {currentTime ? <Text>{currentTime}</Text> : null}
